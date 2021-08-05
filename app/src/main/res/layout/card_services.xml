@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="2dp"
+        android:minHeight="100dp"
+        app:cardBackgroundColor="@color/whiteBodyColor"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="16dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp">
+
+                <TextView
+                    android:id="@+id/headerTextRoom"
+                    android:text="Living room"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginRight="50dp"/>
+
+                <TextView
+                    android:id="@+id/descriptionRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/headerTextRoom"
+                    android:text="Description"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/btnDelete"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="Delete"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:textSize="20dp"
+                android:layout_marginRight="40dp"
+                android:src="@drawable/delete"
+                />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageViewRoom"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/living_room"
+        android:layout_centerVertical="true"
+        android:elevation="13dp"
+        android:scaleType="centerCrop"/>
+
+</RelativeLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginRight="2dp"-->
+<!--        android:minHeight="100dp"-->
+<!--        app:cardBackgroundColor="@color/whiteBodyColor"-->
+<!--        app:cardElevation="2dp"-->
+<!--        app:cardCornerRadius="16dp">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:gravity="center">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginLeft="50dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/headerTextRoom"-->
+<!--                    android:text="Living room"-->
+<!--                    style="@style/viewParent.headerText"-->
+<!--                    android:textColor="@color/primaryTextColor"-->
+<!--                    android:layout_marginRight="70dp"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/descriptionRoom"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Description"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="14sp"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--&lt;!&ndash;            <Button&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/btnDelete"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="Delete"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:background="#F84242"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="15dp"/>&ndash;&gt;-->
+<!--            <ImageView-->
+<!--                android:id="@+id/btnDelete"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/delete"-->
+<!--                android:textStyle="bold"-->
+<!--                android:gravity="center"-->
+
+<!--                android:textSize="15dp"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewRoom"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:src="@drawable/living_room"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:elevation="13dp"/>-->
+
+<!--</RelativeLayout>-->
