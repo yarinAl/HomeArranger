@@ -69,46 +69,53 @@ public class RoomContent extends AppCompatActivity {
     //    משתנים
     FirebaseAuth mAuth;
     StorageReference storageReference;
+    // לחצנים
     private Button addItemBtn;
     private Button cameraBtn;
+    private Button galleryBtn;
+    //==============================
     private ImageView selectedImage;
     ArrayList<Product> ItemList;
-    long items_counter;
+    //משתני עזר לבחירת תאריך
     Calendar calendar = Calendar.getInstance();
     final int year = calendar.get(Calendar.YEAR);
     final int month = calendar.get(Calendar.MONTH);
     final int day = calendar.get(Calendar.DAY_OF_MONTH);
     DatePickerDialog.OnDateSetListener setListener;
+    //==================================
+    //משתני עזר לרשימה דינאמית
     private RecyclerView mRecyclerView;
     private ItemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    //==============================================
+    //למצלמה
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
-    Button galleryBtn;
-    String currentPhotoPath;
-    String imgUrl;
-    String roomName;
-    String nm;
+    private String currentPhotoPath;
+    private String imgUrl;
+    //====================================
+    private String roomName;
+    long items_counter = 0;
+
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_content);
-        long countItems = items_counter;
         mAuth = FirebaseAuth.getInstance();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         roomName = getIntent().getStringExtra("TextHeader");
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = rootRef.child("User").child(mAuth.getUid()).child("roomList").child(roomName).child("productList");
-        DatabaseReference refRoom = rootRef.child("User").child(mAuth.getUid()).child("roomList").child(roomName);
-        LinearLayout header = findViewById(R.id.content_act);
+//        DatabaseReference refRoom = rootRef.child("User").child(mAuth.getUid()).child("roomList").child(roomName);
+//        LinearLayout header = findViewById(R.id.content_act);
         Bundle extras = getIntent().getExtras();
-        int pos = extras.getInt("position");
+//        int pos = extras.getInt("position");
         storageReference = FirebaseStorage.getInstance().getReference();
         //=========================================================================================
-        //קריאה מהפיירבייס
+        //קריאת אייטמים מהפיירבייס
         ValueEventListener eventListener = new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 int i = 0;
@@ -128,10 +135,12 @@ public class RoomContent extends AppCompatActivity {
         };
         ref.addListenerForSingleValueEvent(eventListener);
         createItemList();
+        // יצירת רשימה דינאמית
         buildRecyclerView();
-        addItemBtn = findViewById(R.id.btn);
         //=========================================================================================
         //דיאלוג ללחצן ההוספת פריט לרשימה
+        //=========================================================================================
+        addItemBtn = findViewById(R.id.btn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(RoomContent.this);
@@ -183,30 +192,28 @@ public class RoomContent extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         int amount = 0;
-                        Toast.makeText(RoomContent.this, "current counter items is: " + String.valueOf(items_counter), Toast.LENGTH_LONG).show();
                         String name = item_name.getText().toString();
                         if (item_amount.getText().toString() != "") {
                             try {
                                 amount = Integer.parseInt(item_amount.getText().toString());
                             } catch (NumberFormatException ex) { // handle your exception
-
                             }
                         }
                         String location = item_location.getText().toString();
                         String date = item_Date.getText().toString();
                         if (imgUrl != null && name != null && amount != 0 && location != null && date != null) {
-                            Toast.makeText(RoomContent.this, "current counter items is: " + String.valueOf(items_counter), Toast.LENGTH_LONG).show();
-                            InsertItem(Integer.parseInt(String.valueOf(items_counter)), new Product(imgUrl, name, amount, location, date,"f"));
-                            ref.child(String.valueOf(items_counter)).setValue(new Product(imgUrl, name, amount, location, date,"f"));
-                            int len = ItemList.size();
-                            mAdapter.notifyItemInserted(len);
+                            InsertItem(Integer.parseInt(String.valueOf(items_counter)), new Product(imgUrl, name, amount, location, date, "f"));
+                            ref.child(String.valueOf(items_counter)).setValue(new Product(imgUrl, name, amount, location, date, "f"));
                             items_counter++;
                         } else {
                             Toast.makeText(RoomContent.this, "Error invalid inputs", Toast.LENGTH_SHORT).show();
                         }
-                        nm = name;
+                        if (items_counter == 0) {
+                            InsertItem(Integer.parseInt(String.valueOf(items_counter)), new Product(imgUrl, name, amount, location, date, "f"));
+                            ref.child(String.valueOf(items_counter)).setValue(new Product(imgUrl, name, amount, location, date, "f"));
+                            items_counter++;
+                        }
                         dialog.dismiss();
-                        Toast.makeText(RoomContent.this, "count!" + items_counter, Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -238,6 +245,7 @@ public class RoomContent extends AppCompatActivity {
                 intent.putExtra("room", roomName);
                 startActivity(intent);
             }
+
             //מחיקה של פריט
             //=============
             @Override
@@ -248,7 +256,7 @@ public class RoomContent extends AppCompatActivity {
 
             @Override
             public void onFavouritesClick(int position) {
-              ItemList.get(position).setFavourite("t");
+                ItemList.get(position).setFavourite("t");
             }
         });
     }
@@ -291,7 +299,6 @@ public class RoomContent extends AppCompatActivity {
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 Uri contentUri = Uri.fromFile(f);
                 mediaScanIntent.setData(contentUri);
-                Toast.makeText(this, "Path Here!!!!: "+contentUri.toString(), Toast.LENGTH_LONG).show();
                 this.sendBroadcast(mediaScanIntent);
                 uploadImageToFirebase(f.getName(), contentUri);
             }
@@ -329,10 +336,8 @@ public class RoomContent extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
-
                     }
                 });
-
                 Toast.makeText(RoomContent.this, "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -438,7 +443,8 @@ public class RoomContent extends AppCompatActivity {
         ItemList.remove(position);
         mAdapter.notifyItemRemoved(position);
     }
-//==================================================================================================
+
+    //==================================================================================================
     //דיאלוג למחיקת פריט
     //========================
     public void showDeleteDialog(int pos) {

@@ -38,6 +38,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             mTextViewHeader = itemView.findViewById(R.id.headerTextRoom);
             mTextViewDescription = itemView.findViewById(R.id.descriptionRoom);
             delete=itemView.findViewById(R.id.btnDelete);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -52,7 +53,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
@@ -78,7 +78,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     @Override
     public void onBindViewHolder(RoomViewHolder holder, int position) {
         Room currentRoom = mRoomList.get(position);
-
         holder.mImageView.setImageResource(currentRoom.getImageResource());
         holder.mTextViewHeader.setText(currentRoom.getTextHeader());
         holder.mTextViewDescription.setText(currentRoom.getTextHeader());

@@ -22,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
-
+//שיניתי
     TextView linkViewLoginScreen, linkForgetPassword;
     Button btnLogin;
     EditText inputEmail, inputPassword;

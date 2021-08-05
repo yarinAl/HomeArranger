@@ -100,8 +100,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.amountView.setText(String.valueOf(currentItem.getAmount()));
         holder.locationView.setText(currentItem.getLocation());
         holder.DateView.setText(currentItem.getDate());
-
-
     }
 
     @Override

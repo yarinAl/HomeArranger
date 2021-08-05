@@ -48,21 +48,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //הגדרת משתנים
     private RecyclerView mRecyclerView;
-    private RecyclerView mRecyclerView2;
     private RoomAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private BottomNavigationView bottomNavigationView;
     private ArrayList<Room> RoomList;
     private ArrayList<Product> ProductList = new ArrayList<Product>();
     private int len;
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<String> IdList = new ArrayList<>();
+//    private ArrayList<String> names = new ArrayList<>();
     private String RoomName = "";
     Task<Void> myRef;
     FirebaseAuth mAuth;
 
 
-    //תפריט ניווט בעזרת אייקוניים
+    // ניווט  תחתון
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -74,8 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
 
                 case R.id.navigationAddRoom:
-                    showDialog();
-
+                    showAddRoomDialog();
                     Toast.makeText(MainActivity.this, "Add room!", Toast.LENGTH_SHORT).show();
                     break;
 
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String name = ds.getKey();
                     if (name != null) {
                         len = RoomList.size();
-                        names.add(name);
+//                        names.add(name);
                         RoomList.add(len, new Room(R.drawable.living_room, name, "room", ProductList));
                         mAdapter.notifyItemInserted(len);
                     }
@@ -188,7 +185,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    //אייקונים
+    //==============================
+    //תפריט צידי
+    //================================
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -247,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 //    דיאלוג להוספת חדר
-    public void showDialog() {
+    public void showAddRoomDialog() {
         AlertDialog roomDialog = new AlertDialog.Builder(this).create();
         // Set Custom Title
         TextView title = new TextView(this);
@@ -284,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         roomDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                RoomName = RoomData.getText().toString();
+//                RoomName = RoomData.getText().toString();
             }
         });
 
@@ -298,7 +297,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         okBT.setPadding(50, 10, 10, 10);   // Set Position
         okBT.setTextColor(Color.rgb(34,139,34));
         okBT.setLayoutParams(neutralBtnLP);
-
         final Button cancelBT = roomDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         LinearLayout.LayoutParams negBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
         negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
@@ -306,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         cancelBT.setLayoutParams(negBtnLP);
     }
 
-
+    //דיאלוג מחיקה
     public  void showDeleteDialog(int pos)
     {
         AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
